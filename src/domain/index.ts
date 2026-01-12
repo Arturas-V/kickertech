@@ -21,3 +21,6 @@ export type {
 
 // Rules & Utilities
 export { createEmptyStats, isDuplicateMatch, isSelfMatch, POINTS } from './rules';
+
+// Standings Engine
+export { calculateStandings, sortStandings } from './standings';
