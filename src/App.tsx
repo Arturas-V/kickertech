@@ -1,35 +1,79 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, useEffect, Suspense, lazy } from 'react';
+import { useAppSelector } from './app/hooks';
+import { selectAllTournaments } from './app/selectors/tournamentsSelectors';
+import { Header, Footer, TournamentSwitcher } from './shared/components';
+import { useInitializeTournaments } from './hooks/useInitializeTournaments';
+import './App.css';
 
+// Lazy-load tournament feature modules (will be created later)
+const PremierLeague = lazy(() => import('./features/premier-league/PremierLeague'));
+const Eurobasket = lazy(() => import('./features/eurobasket/Eurobasket'));
+const Wimbledon = lazy(() => import('./features/wimbledon/Wimbledon'));
+
+/**
+ * Main App component with shell layout
+ * Only renders the active tournament for optimal performance
+ */
 function App() {
-  const [count, setCount] = useState(0)
+  // Initialize tournaments on first load
+  useInitializeTournaments();
+
+  // Get all tournaments from Redux
+  const tournaments = useAppSelector(selectAllTournaments);
+  const tournamentList = Object.values(tournaments);
+
+  // Track active tournament
+  const [activeTournamentId, setActiveTournamentId] = useState<string | null>(
+    tournamentList[0]?.id || null
+  );
+
+  // Update active tournament when tournaments load
+  useEffect(() => {
+    if (!activeTournamentId && tournamentList.length > 0) {
+      setActiveTournamentId(tournamentList[0].id);
+    }
+  }, [tournamentList, activeTournamentId]);
+
+  // Get active tournament
+  const activeTournament = activeTournamentId
+    ? tournaments[activeTournamentId]
+    : null;
+
+  // Map tournament names to components
+  const getTournamentComponent = () => {
+    if (!activeTournament) return null;
+
+    switch (activeTournament.name) {
+      case 'Premier League':
+        return <PremierLeague tournamentId={activeTournament.id} />;
+      case 'Eurobasket':
+        return <Eurobasket tournamentId={activeTournament.id} />;
+      case 'Wimbledon':
+        return <Wimbledon tournamentId={activeTournament.id} />;
+      default:
+        return null;
+    }
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="app-container">
+      <Header />
+
+      <TournamentSwitcher
+        tournaments={tournamentList.map((t) => ({ id: t.id, name: t.name }))}
+        activeTournamentId={activeTournamentId}
+        onSelect={setActiveTournamentId}
+      />
+
+      <main className="app-main">
+        <Suspense fallback={<div className="loading">Loading tournament...</div>}>
+          {getTournamentComponent()}
+        </Suspense>
+      </main>
+
+      <Footer />
+    </div>
+  );
 }
 
-export default App
+export default App;
