@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from 'react';
+import { useState, useCallback, memo, type FormEvent, type ChangeEvent } from 'react';
 import { useAppDispatch } from '@/app/hooks';
 import { addParticipant } from '@/app/slices/tournamentsSlice';
 import './AddParticipantForm.scss';
@@ -11,8 +11,9 @@ interface AddParticipantFormProps {
 
 /**
  * Form for adding a new participant (team/player) to a tournament
+ * Optimized with React.memo and useCallback
  */
-export function AddParticipantForm({
+export const AddParticipantForm = memo(function AddParticipantForm({
   tournamentId,
   participantLabel,
   theme = 'clean',
@@ -20,21 +21,28 @@ export function AddParticipantForm({
   const dispatch = useAppDispatch();
   const [name, setName] = useState('');
 
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    if (name.trim()) {
-      dispatch(
-        addParticipant({
-          tournamentId,
-          participant: {
-            id: `${tournamentId}-${Date.now()}`,
-            name: name.trim(),
-          },
-        })
-      );
-      setName('');
-    }
-  };
+  const handleSubmit = useCallback(
+    (e: FormEvent) => {
+      e.preventDefault();
+      if (name.trim()) {
+        dispatch(
+          addParticipant({
+            tournamentId,
+            participant: {
+              id: `${tournamentId}-${Date.now()}`,
+              name: name.trim(),
+            },
+          })
+        );
+        setName('');
+      }
+    },
+    [dispatch, tournamentId, name]
+  );
+
+  const handleChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    setName(e.target.value);
+  }, []);
 
   return (
     <form
@@ -46,7 +54,7 @@ export function AddParticipantForm({
         <input
           type="text"
           value={name}
-          onChange={(e) => setName(e.target.value)}
+          onChange={handleChange}
           placeholder={`${participantLabel} Name`}
           className="form-input"
           required
@@ -57,4 +65,4 @@ export function AddParticipantForm({
       </div>
     </form>
   );
-}
+});

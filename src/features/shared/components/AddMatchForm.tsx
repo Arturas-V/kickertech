@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from 'react';
+import { useState, useCallback, memo, useMemo, type FormEvent, type ChangeEvent } from 'react';
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import { addMatch } from '@/app/slices/tournamentsSlice';
 import { selectParticipantsByTournamentId } from '@/app/selectors/tournamentsSelectors';
@@ -13,8 +13,9 @@ interface AddMatchFormProps {
 
 /**
  * Form for adding match results between two participants
+ * Optimized with React.memo, useCallback, and useMemo
  */
-export function AddMatchForm({
+export const AddMatchForm = memo(function AddMatchForm({
   tournamentId,
   scoreLabel,
   theme = 'clean',
@@ -23,7 +24,9 @@ export function AddMatchForm({
   const participants = useAppSelector((state) =>
     selectParticipantsByTournamentId(state, tournamentId)
   );
-  const matches = useAppSelector((state) => state.tournaments.tournaments[tournamentId]?.matches || []);
+  const matches = useAppSelector(
+    (state) => state.tournaments.tournaments[tournamentId]?.matches || []
+  );
 
   const [homeId, setHomeId] = useState('');
   const [awayId, setAwayId] = useState('');
@@ -31,55 +34,74 @@ export function AddMatchForm({
   const [awayScore, setAwayScore] = useState('');
   const [error, setError] = useState('');
 
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    setError('');
+  const isDisabled = useMemo(() => participants.length < 2, [participants.length]);
 
-    if (!homeId || !awayId) {
-      setError('Please select both participants');
-      return;
-    }
+  const handleSubmit = useCallback(
+    (e: FormEvent) => {
+      e.preventDefault();
+      setError('');
 
-    if (isSelfMatch(homeId, awayId)) {
-      setError('A participant cannot play against itself');
-      return;
-    }
+      if (!homeId || !awayId) {
+        setError('Please select both participants');
+        return;
+      }
 
-    if (isDuplicateMatch(matches, homeId, awayId)) {
-      setError('These participants have already played');
-      return;
-    }
+      if (isSelfMatch(homeId, awayId)) {
+        setError('A participant cannot play against itself');
+        return;
+      }
 
-    const home = parseInt(homeScore);
-    const away = parseInt(awayScore);
+      if (isDuplicateMatch(matches, homeId, awayId)) {
+        setError('These participants have already played');
+        return;
+      }
 
-    if (isNaN(home) || isNaN(away) || home < 0 || away < 0) {
-      setError('Please enter valid scores');
-      return;
-    }
+      const home = parseInt(homeScore);
+      const away = parseInt(awayScore);
 
-    dispatch(
-      addMatch({
-        tournamentId,
-        match: {
-          id: `${tournamentId}-match-${Date.now()}`,
-          homeId,
-          awayId,
-          homeScore: home,
-          awayScore: away,
-          playedAt: Date.now(),
-        },
-      })
-    );
+      if (isNaN(home) || isNaN(away) || home < 0 || away < 0) {
+        setError('Please enter valid scores');
+        return;
+      }
 
-    // Reset form
-    setHomeId('');
-    setAwayId('');
-    setHomeScore('');
-    setAwayScore('');
-  };
+      dispatch(
+        addMatch({
+          tournamentId,
+          match: {
+            id: `${tournamentId}-match-${Date.now()}`,
+            homeId,
+            awayId,
+            homeScore: home,
+            awayScore: away,
+            playedAt: Date.now(),
+          },
+        })
+      );
 
-  const isDisabled = participants.length < 2;
+      // Reset form
+      setHomeId('');
+      setAwayId('');
+      setHomeScore('');
+      setAwayScore('');
+    },
+    [dispatch, tournamentId, homeId, awayId, homeScore, awayScore, matches]
+  );
+
+  const handleHomeIdChange = useCallback((e: ChangeEvent<HTMLSelectElement>) => {
+    setHomeId(e.target.value);
+  }, []);
+
+  const handleAwayIdChange = useCallback((e: ChangeEvent<HTMLSelectElement>) => {
+    setAwayId(e.target.value);
+  }, []);
+
+  const handleHomeScoreChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    setHomeScore(e.target.value);
+  }, []);
+
+  const handleAwayScoreChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    setAwayScore(e.target.value);
+  }, []);
 
   return (
     <form
@@ -95,7 +117,7 @@ export function AddMatchForm({
       <div className="form-row">
         <select
           value={homeId}
-          onChange={(e) => setHomeId(e.target.value)}
+          onChange={handleHomeIdChange}
           className="form-select"
           disabled={isDisabled}
           required
@@ -110,7 +132,7 @@ export function AddMatchForm({
 
         <select
           value={awayId}
-          onChange={(e) => setAwayId(e.target.value)}
+          onChange={handleAwayIdChange}
           className="form-select"
           disabled={isDisabled}
           required
@@ -128,7 +150,7 @@ export function AddMatchForm({
         <input
           type="number"
           value={homeScore}
-          onChange={(e) => setHomeScore(e.target.value)}
+          onChange={handleHomeScoreChange}
           placeholder="Home Score"
           className="form-input"
           min="0"
@@ -139,7 +161,7 @@ export function AddMatchForm({
         <input
           type="number"
           value={awayScore}
-          onChange={(e) => setAwayScore(e.target.value)}
+          onChange={handleAwayScoreChange}
           placeholder="Away Score"
           className="form-input"
           min="0"
@@ -155,4 +177,4 @@ export function AddMatchForm({
       </button>
     </form>
   );
-}
+});

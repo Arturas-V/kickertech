@@ -1,11 +1,11 @@
-import { useState, useEffect, Suspense, lazy } from 'react';
+import { useState, useEffect, Suspense, lazy, useMemo, useCallback } from 'react';
 import { useAppSelector } from './app/hooks';
 import { selectAllTournaments } from './app/selectors/tournamentsSelectors';
 import { Header, Footer, TournamentSwitcher } from './shared/components';
 import { useInitializeTournaments } from './hooks/useInitializeTournaments';
 import './App.scss';
 
-// Lazy-load tournament feature modules (will be created later)
+// Lazy-load tournament feature modules for code splitting
 const PremierLeague = lazy(() => import('./features/premier-league/PremierLeague'));
 const Eurobasket = lazy(() => import('./features/eurobasket/Eurobasket'));
 const Wimbledon = lazy(() => import('./features/wimbledon/Wimbledon'));
@@ -13,6 +13,7 @@ const Wimbledon = lazy(() => import('./features/wimbledon/Wimbledon'));
 /**
  * Main App component with shell layout
  * Only renders the active tournament for optimal performance
+ * Optimized with useMemo and useCallback to prevent unnecessary re-renders
  */
 function App() {
   // Initialize tournaments on first load
@@ -20,7 +21,9 @@ function App() {
 
   // Get all tournaments from Redux
   const tournaments = useAppSelector(selectAllTournaments);
-  const tournamentList = Object.values(tournaments);
+
+  // Memoize tournament list to avoid recreation on every render
+  const tournamentList = useMemo(() => Object.values(tournaments), [tournaments]);
 
   // Track active tournament
   const [activeTournamentId, setActiveTournamentId] = useState<string | null>(
@@ -34,13 +37,20 @@ function App() {
     }
   }, [tournamentList, activeTournamentId]);
 
-  // Get active tournament
-  const activeTournament = activeTournamentId
-    ? tournaments[activeTournamentId]
-    : null;
+  // Memoize active tournament lookup
+  const activeTournament = useMemo(
+    () => (activeTournamentId ? tournaments[activeTournamentId] : null),
+    [tournaments, activeTournamentId]
+  );
 
-  // Map tournament names to components
-  const getTournamentComponent = () => {
+  // Memoize tournament list for TournamentSwitcher
+  const tournamentSwitcherData = useMemo(
+    () => tournamentList.map((t) => ({ id: t.id, name: t.name })),
+    [tournamentList]
+  );
+
+  // Memoize tournament component selection
+  const getTournamentComponent = useCallback(() => {
     if (!activeTournament) return null;
 
     switch (activeTournament.name) {
@@ -53,14 +63,14 @@ function App() {
       default:
         return null;
     }
-  };
+  }, [activeTournament]);
 
   return (
     <div className="app-container">
       <Header />
 
       <TournamentSwitcher
-        tournaments={tournamentList.map((t) => ({ id: t.id, name: t.name }))}
+        tournaments={tournamentSwitcherData}
         activeTournamentId={activeTournamentId}
         onSelect={setActiveTournamentId}
       />

@@ -1,5 +1,7 @@
+import { memo } from 'react';
 import { useAppSelector } from '@/app/hooks';
 import { selectStandingsByTournamentId } from '@/app/selectors/tournamentsSelectors';
+import type { Participant } from '@/domain';
 import './StandingsTable.scss';
 
 interface StandingsTableProps {
@@ -8,10 +10,50 @@ interface StandingsTableProps {
   showIcons?: boolean; // Show checkmarks/X for wins/losses (Wimbledon)
 }
 
+interface StandingsRowProps {
+  participant: Participant;
+  showIcons: boolean;
+}
+
+/**
+ * Memoized table row component - prevents re-render unless participant data changes
+ */
+const StandingsRow = memo(({ participant, showIcons }: StandingsRowProps) => {
+  return (
+    <tr className="standings-table__row">
+      <td className="standings-table__cell standings-table__cell--name">
+        {participant.name}
+      </td>
+      <td className="standings-table__cell">{participant.stats.played}</td>
+      <td className="standings-table__cell">
+        {showIcons && participant.stats.wins > 0 ? (
+          <span className="icon-success">✓</span>
+        ) : null}
+        {participant.stats.wins}
+      </td>
+      {!showIcons && (
+        <td className="standings-table__cell">{participant.stats.draws}</td>
+      )}
+      <td className="standings-table__cell">
+        {showIcons && participant.stats.losses > 0 ? (
+          <span className="icon-error">✕</span>
+        ) : null}
+        {participant.stats.losses}
+      </td>
+      <td className="standings-table__cell standings-table__cell--points">
+        {participant.stats.points}
+      </td>
+    </tr>
+  );
+});
+
+StandingsRow.displayName = 'StandingsRow';
+
 /**
  * Displays sorted standings table for a tournament
+ * Optimized with React.memo for row-level memoization
  */
-export function StandingsTable({
+export const StandingsTable = memo(function StandingsTable({
   tournamentId,
   theme = 'clean',
   showIcons = false,
@@ -45,33 +87,14 @@ export function StandingsTable({
         </thead>
         <tbody>
           {standings.map((participant) => (
-            <tr key={participant.id} className="standings-table__row">
-              <td className="standings-table__cell standings-table__cell--name">
-                {participant.name}
-              </td>
-              <td className="standings-table__cell">{participant.stats.played}</td>
-              <td className="standings-table__cell">
-                {showIcons && participant.stats.wins > 0 ? (
-                  <span className="icon-success">✓</span>
-                ) : null}
-                {participant.stats.wins}
-              </td>
-              {!showIcons && (
-                <td className="standings-table__cell">{participant.stats.draws}</td>
-              )}
-              <td className="standings-table__cell">
-                {showIcons && participant.stats.losses > 0 ? (
-                  <span className="icon-error">✕</span>
-                ) : null}
-                {participant.stats.losses}
-              </td>
-              <td className="standings-table__cell standings-table__cell--points">
-                {participant.stats.points}
-              </td>
-            </tr>
+            <StandingsRow
+              key={participant.id}
+              participant={participant}
+              showIcons={showIcons}
+            />
           ))}
         </tbody>
       </table>
     </div>
   );
-}
+});
