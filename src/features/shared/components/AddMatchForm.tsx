@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import { addMatch } from '@/app/slices/tournamentsSlice';
 import { selectParticipantsByTournamentId } from '@/app/selectors/tournamentsSelectors';
 import { isDuplicateMatch, isSelfMatch } from '@/domain';
-import './AddMatchForm.css';
+import './AddMatchForm.scss';
 
 interface AddMatchFormProps {
   tournamentId: string;

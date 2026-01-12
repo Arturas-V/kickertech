@@ -1,6 +1,6 @@
 import { useAppSelector } from '@/app/hooks';
 import { selectStandingsByTournamentId } from '@/app/selectors/tournamentsSelectors';
-import './StandingsTable.css';
+import './StandingsTable.scss';
 
 interface StandingsTableProps {
   tournamentId: string;

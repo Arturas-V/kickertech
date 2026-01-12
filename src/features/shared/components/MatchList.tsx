@@ -1,6 +1,6 @@
 import { useAppSelector } from '@/app/hooks';
 import { selectMatchesByTournamentId, selectTournamentById } from '@/app/selectors/tournamentsSelectors';
-import './MatchList.css';
+import './MatchList.scss';
 
 interface MatchListProps {
   tournamentId: string;

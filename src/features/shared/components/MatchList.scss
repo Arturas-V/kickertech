@@ -1,0 +1,111 @@
+// =============================================================================
+// Match List Component Styles
+// =============================================================================
+
+@import '../../../styles/variables';
+@import '../../../styles/mixins';
+
+.match-list {
+  padding: $spacing-xl;
+  border-radius: $border-radius-lg;
+  margin-bottom: $spacing-xl;
+
+  .empty-state {
+    @include empty-state;
+  }
+}
+
+.match-item {
+  @include flex-between;
+  padding: $spacing-md;
+  margin-bottom: $spacing-sm;
+  border-radius: $border-radius-md;
+}
+
+.match-participants {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  flex: 1;
+}
+
+.match-team {
+  font-weight: $font-weight-medium;
+}
+
+.match-vs {
+  color: $color-gray-500;
+  font-size: $font-size-sm;
+}
+
+.match-score {
+  font-weight: $font-weight-bold;
+  font-size: $font-size-lg;
+  padding: $spacing-xs $spacing-md;
+  border-radius: $border-radius-sm;
+}
+
+// Theme: Clean
+.match-list--clean {
+  background: $color-white;
+
+  .match-item {
+    background: $color-gray-50;
+    border: 1px solid $color-gray-200;
+  }
+
+  .match-team {
+    color: $color-gray-700;
+  }
+
+  .match-score {
+    background: $color-gray-100;
+    color: $color-gray-700;
+  }
+}
+
+// Theme: Sporty
+.match-list--sporty {
+  background: transparent;
+
+  .empty-state {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .match-item {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .match-team {
+    color: $color-white;
+  }
+
+  .match-vs {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .match-score {
+    background: rgba(255, 255, 255, 0.2);
+    color: $color-white;
+  }
+}
+
+// Theme: Table
+.match-list--table {
+  background: $color-white;
+
+  .match-item {
+    background: $color-gray-50;
+    border: 1px solid $color-gray-200;
+  }
+
+  .match-team {
+    color: $color-gray-700;
+  }
+
+  .match-score {
+    background: $color-gray-100;
+    color: $color-gray-700;
+  }
+}

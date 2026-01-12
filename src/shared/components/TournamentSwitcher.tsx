@@ -1,5 +1,5 @@
 import { type TournamentName } from '@/domain';
-import './TournamentSwitcher.css';
+import './TournamentSwitcher.scss';
 
 interface TournamentSwitcherProps {
   tournaments: Array<{ id: string; name: TournamentName }>;

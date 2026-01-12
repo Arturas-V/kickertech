@@ -1,4 +1,4 @@
-import './Header.css';
+import './Header.scss';
 
 /**
  * App header component

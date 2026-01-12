@@ -1,0 +1,126 @@
+// =============================================================================
+// Standings Table Component Styles
+// =============================================================================
+
+@import '../../../styles/variables';
+@import '../../../styles/mixins';
+
+.standings-table {
+  padding: $spacing-xl;
+  border-radius: $border-radius-lg;
+
+  .empty-state {
+    @include empty-state;
+  }
+}
+
+.standings-table__table {
+  @include table-base;
+}
+
+.standings-table__header {
+  @include table-header;
+  border-bottom: 2px solid;
+}
+
+.standings-table__row {
+  border-bottom: 1px solid;
+}
+
+.standings-table__cell {
+  @include table-cell;
+
+  &--name {
+    font-weight: $font-weight-medium;
+  }
+
+  &--points {
+    font-weight: $font-weight-bold;
+    font-size: $font-size-lg;
+  }
+}
+
+.icon-success {
+  color: $color-success;
+  margin-right: $spacing-xs;
+}
+
+.icon-error {
+  color: $color-error;
+  margin-right: $spacing-xs;
+}
+
+// Theme: Clean
+.standings-table--clean {
+  background: $color-white;
+
+  .standings-table__header {
+    color: $color-gray-800;
+    border-bottom-color: $color-gray-200;
+  }
+
+  .standings-table__row {
+    border-bottom-color: $color-gray-50;
+
+    @include table-row-hover($color-gray-50);
+  }
+
+  .standings-table__cell {
+    color: $color-gray-700;
+  }
+}
+
+// Theme: Sporty
+.standings-table--sporty {
+  background: transparent;
+
+  .empty-state {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .standings-table__header {
+    color: $color-white;
+    border-bottom-color: rgba(255, 255, 255, 0.3);
+  }
+
+  .standings-table__row {
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+
+    @include table-row-hover(rgba(255, 255, 255, 0.05));
+  }
+
+  .standings-table__cell {
+    color: $color-white;
+  }
+}
+
+// Theme: Table
+.standings-table--table {
+  background: $color-white;
+
+  .standings-table__header {
+    color: $color-gray-800;
+    border-bottom-color: $color-gray-200;
+  }
+
+  .standings-table__row {
+    border-bottom-color: $color-gray-50;
+
+    @include table-row-hover($color-gray-50);
+  }
+
+  .standings-table__cell {
+    color: $color-gray-700;
+  }
+}
+
+@include respond-to(md) {
+  .standings-table__table {
+    font-size: $font-size-sm;
+  }
+
+  .standings-table__header,
+  .standings-table__cell {
+    padding: $spacing-sm $spacing-xs;
+  }
+}

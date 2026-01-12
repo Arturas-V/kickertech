@@ -1,0 +1,176 @@
+// =============================================================================
+// SASS Mixins - Reusable Patterns
+// =============================================================================
+
+@import './variables';
+
+// Responsive Breakpoints
+@mixin respond-to($breakpoint) {
+  @if $breakpoint == xs {
+    @media (max-width: $breakpoint-xs) { @content; }
+  } @else if $breakpoint == sm {
+    @media (max-width: $breakpoint-sm) { @content; }
+  } @else if $breakpoint == md {
+    @media (max-width: $breakpoint-md) { @content; }
+  } @else if $breakpoint == lg {
+    @media (max-width: $breakpoint-lg) { @content; }
+  } @else if $breakpoint == xl {
+    @media (max-width: $breakpoint-xl) { @content; }
+  } @else if $breakpoint == 2xl {
+    @media (max-width: $breakpoint-2xl) { @content; }
+  }
+}
+
+// Flexbox patterns
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+// Button Base
+@mixin button-base {
+  padding: $spacing-md $spacing-xl;
+  border: none;
+  border-radius: $border-radius-md;
+  font-weight: $font-weight-semibold;
+  cursor: pointer;
+  transition: all $transition-base;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+// Button Variant
+@mixin button-variant($bg-color, $hover-color, $text-color: $color-white) {
+  @include button-base;
+  background: $bg-color;
+  color: $text-color;
+
+  &:hover:not(:disabled) {
+    background: $hover-color;
+  }
+}
+
+// Form Input Base
+@mixin input-base {
+  padding: $spacing-md;
+  border: 1px solid $color-gray-200;
+  border-radius: $border-radius-md;
+  font-size: $font-size-base;
+  transition: border-color $transition-base;
+
+  &:focus {
+    outline: none;
+    border-color: $color-blue-light;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+// Card/Container
+@mixin card($padding: $spacing-xl) {
+  padding: $padding;
+  background: $color-white;
+  border-radius: $border-radius-lg;
+  box-shadow: $shadow-sm;
+}
+
+// Gradient Backgrounds
+@mixin gradient-purple {
+  background: linear-gradient(135deg, $color-purple-light 0%, $color-purple 100%);
+}
+
+@mixin gradient-green-dark {
+  background: linear-gradient(135deg, $color-green-dark 0%, $color-green 100%);
+}
+
+@mixin gradient-tennis {
+  background: linear-gradient(135deg, $color-tennis-green 0%, $color-tennis-green-dark 100%);
+}
+
+@mixin gradient-brand {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+// Text Truncate
+@mixin truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// Hover lift effect
+@mixin hover-lift {
+  transition: transform $transition-base, box-shadow $transition-base;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: $shadow-md;
+  }
+}
+
+// Theme-specific form inputs
+@mixin input-theme-sporty {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: $color-white;
+
+  &::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  &:focus {
+    border-color: rgba(255, 255, 255, 0.4);
+  }
+}
+
+// Empty state
+@mixin empty-state {
+  text-align: center;
+  color: $color-gray-500;
+  padding: $spacing-2xl $spacing-lg;
+  margin: 0;
+}
+
+// Table base styles
+@mixin table-base {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: $font-size-base;
+}
+
+@mixin table-header {
+  padding: $spacing-md $spacing-sm;
+  text-align: left;
+  font-weight: $font-weight-semibold;
+}
+
+@mixin table-cell {
+  padding: $spacing-md $spacing-sm;
+  text-align: left;
+}
+
+@mixin table-row-hover($hover-color) {
+  transition: background-color $transition-base;
+
+  &:hover {
+    background: $hover-color;
+  }
+}

@@ -1,0 +1,100 @@
+// =============================================================================
+// Eurobasket Tournament Styles (Sporty & Energetic Theme)
+// =============================================================================
+
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.eurobasket {
+  @include gradient-green-dark;
+  border-radius: $border-radius-xl;
+  overflow: hidden;
+  box-shadow: $shadow-md;
+  color: $color-white;
+}
+
+.eurobasket__header {
+  padding: $spacing-xl $spacing-2xl;
+  @include flex-center;
+  gap: $spacing-lg;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+
+  h2 {
+    margin: 0;
+    font-size: $font-size-2xl;
+    font-weight: $font-weight-bold;
+    letter-spacing: 1px;
+  }
+}
+
+.eurobasket__icon {
+  font-size: $font-size-3xl;
+}
+
+.eurobasket__content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $spacing-2xl;
+  padding: $spacing-2xl;
+}
+
+.eurobasket__section {
+  @include flex-column;
+  gap: $spacing-lg;
+}
+
+.eurobasket__buttons {
+  display: flex;
+  gap: $spacing-lg;
+  margin-bottom: $spacing-lg;
+}
+
+.eurobasket__add-btn {
+  flex: 1;
+  padding: $spacing-md $spacing-xl;
+  background: $color-orange;
+  color: $color-white;
+  border: none;
+  border-radius: $border-radius-lg;
+  font-weight: $font-weight-bold;
+  font-size: $font-size-base;
+  cursor: pointer;
+  transition: all $transition-base;
+
+  &:hover {
+    background: $color-orange-dark;
+    @include hover-lift;
+  }
+}
+
+.eurobasket__subtitle {
+  color: $color-white;
+  font-size: $font-size-xl;
+  font-weight: $font-weight-semibold;
+  margin: 0 0 $spacing-sm 0;
+}
+
+@include respond-to(xl) {
+  .eurobasket__content {
+    grid-template-columns: 1fr;
+  }
+}
+
+@include respond-to(md) {
+  .eurobasket__header {
+    padding: $spacing-lg $spacing-xl;
+
+    h2 {
+      font-size: $font-size-xl;
+    }
+  }
+
+  .eurobasket__content {
+    padding: $spacing-xl;
+    gap: $spacing-xl;
+  }
+
+  .eurobasket__buttons {
+    flex-direction: column;
+  }
+}

@@ -3,7 +3,7 @@ import { useAppSelector } from './app/hooks';
 import { selectAllTournaments } from './app/selectors/tournamentsSelectors';
 import { Header, Footer, TournamentSwitcher } from './shared/components';
 import { useInitializeTournaments } from './hooks/useInitializeTournaments';
-import './App.css';
+import './App.scss';
 
 // Lazy-load tournament feature modules (will be created later)
 const PremierLeague = lazy(() => import('./features/premier-league/PremierLeague'));

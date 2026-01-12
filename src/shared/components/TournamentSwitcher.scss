@@ -1,0 +1,64 @@
+// =============================================================================
+// Tournament Switcher Component Styles
+// =============================================================================
+
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.tournament-switcher {
+  background: $color-white;
+  border-bottom: 2px solid $color-gray-200;
+  padding: $spacing-lg;
+  position: sticky;
+  top: 0;
+  z-index: $z-index-sticky;
+  box-shadow: $shadow-sm;
+}
+
+.tournament-tabs {
+  display: flex;
+  gap: $spacing-sm;
+  max-width: 1200px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+}
+
+.tournament-tab {
+  padding: $spacing-md $spacing-xl;
+  border: 2px solid $color-gray-200;
+  background: $color-white;
+  border-radius: $border-radius-lg;
+  font-size: $font-size-base;
+  font-weight: $font-weight-semibold;
+  cursor: pointer;
+  transition: all $transition-base;
+  color: $color-gray-600;
+
+  &:hover {
+    border-color: $color-blue-light;
+    color: $color-blue-light;
+    transform: translateY(-1px);
+  }
+
+  &.active {
+    @include gradient-brand;
+    color: $color-white;
+    border-color: #667eea;
+  }
+}
+
+.no-tournaments {
+  text-align: center;
+  color: $color-gray-500;
+  margin: 0;
+}
+
+@include respond-to(md) {
+  .tournament-tabs {
+    flex-direction: column;
+  }
+
+  .tournament-tab {
+    width: 100%;
+  }
+}

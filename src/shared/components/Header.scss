@@ -1,0 +1,26 @@
+// =============================================================================
+// Header Component Styles
+// =============================================================================
+
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.app-header {
+  @include gradient-brand;
+  color: $color-white;
+  padding: $spacing-2xl $spacing-lg;
+  text-align: center;
+  box-shadow: $shadow-md;
+
+  h1 {
+    margin: 0;
+    font-size: $font-size-2xl;
+    font-weight: $font-weight-bold;
+  }
+
+  p {
+    margin: $spacing-sm 0 0 0;
+    font-size: $font-size-sm;
+    opacity: 0.9;
+  }
+}

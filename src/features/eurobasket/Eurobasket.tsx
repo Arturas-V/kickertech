@@ -2,7 +2,7 @@ import { AddParticipantForm } from '../shared/components/AddParticipantForm';
 import { AddMatchForm } from '../shared/components/AddMatchForm';
 import { StandingsTable } from '../shared/components/StandingsTable';
 import { MatchList } from '../shared/components/MatchList';
-import './Eurobasket.css';
+import './Eurobasket.scss';
 
 interface EurobasketProps {
   tournamentId: string;

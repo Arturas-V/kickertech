@@ -1,0 +1,19 @@
+// =============================================================================
+// Footer Component Styles
+// =============================================================================
+
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.app-footer {
+  background: $color-gray-700;
+  color: $color-gray-400;
+  padding: $spacing-xl $spacing-lg;
+  text-align: center;
+  margin-top: auto;
+
+  p {
+    margin: 0;
+    font-size: $font-size-sm;
+  }
+}

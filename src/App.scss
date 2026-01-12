@@ -1,0 +1,31 @@
+// =============================================================================
+// App Component Styles
+// =============================================================================
+
+@import './styles/variables';
+@import './styles/mixins';
+
+.app-container {
+  min-height: 100vh;
+  @include flex-column;
+  background: $color-gray-50;
+}
+
+.app-main {
+  flex: 1;
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+  padding: $spacing-2xl $spacing-lg;
+
+  @include respond-to(md) {
+    padding: $spacing-lg $spacing-sm;
+  }
+}
+
+.loading {
+  text-align: center;
+  padding: $spacing-4xl $spacing-lg;
+  color: $color-gray-500;
+  font-size: $font-size-lg;
+}

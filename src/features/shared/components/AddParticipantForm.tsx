@@ -1,7 +1,7 @@
 import { useState, type FormEvent } from 'react';
 import { useAppDispatch } from '@/app/hooks';
 import { addParticipant } from '@/app/slices/tournamentsSlice';
-import './AddParticipantForm.css';
+import './AddParticipantForm.scss';
 
 interface AddParticipantFormProps {
   tournamentId: string;

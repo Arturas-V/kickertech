@@ -1,7 +1,7 @@
 import { AddParticipantForm } from '../shared/components/AddParticipantForm';
 import { AddMatchForm } from '../shared/components/AddMatchForm';
 import { StandingsTable } from '../shared/components/StandingsTable';
-import './Wimbledon.css';
+import './Wimbledon.scss';
 
 interface WimbledonProps {
   tournamentId: string;
