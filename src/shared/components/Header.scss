@@ -24,3 +24,34 @@
     opacity: 0.9;
   }
 }
+
+// Mobile: Make header more compact
+@include respond-to(md) {
+  .app-header {
+    padding: $spacing-lg $spacing-md;
+
+    h1 {
+      font-size: $font-size-lg;
+    }
+
+    p {
+      font-size: $font-size-xs;
+      margin: $spacing-xs 0 0 0;
+    }
+  }
+}
+
+// Extra small screens: Even more compact
+@include respond-to(xs) {
+  .app-header {
+    padding: $spacing-md $spacing-sm;
+
+    h1 {
+      font-size: $font-size-md;
+    }
+
+    p {
+      display: none; // Hide subtitle on very small screens
+    }
+  }
+}

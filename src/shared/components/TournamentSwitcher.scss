@@ -15,6 +15,63 @@
   box-shadow: $shadow-sm;
 }
 
+// Burger menu button (mobile only)
+.tournament-switcher__burger {
+  display: none; // Hidden on desktop
+  width: 100%;
+  @include flex-between;
+  padding: $spacing-md;
+  background: $color-white;
+  border: 2px solid $color-gray-200;
+  border-radius: $border-radius-lg;
+  cursor: pointer;
+  transition: all $transition-base;
+
+  &:hover {
+    border-color: $color-blue-light;
+  }
+}
+
+.burger-icon {
+  width: 24px;
+  height: 18px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all $transition-base;
+
+  span {
+    display: block;
+    width: 100%;
+    height: 3px;
+    background: $color-gray-700;
+    border-radius: 2px;
+    transition: all $transition-base;
+  }
+
+  // Burger animation when open
+  &.open {
+    span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+
+    span:nth-child(2) {
+      opacity: 0;
+    }
+
+    span:nth-child(3) {
+      transform: translateY(-8px) rotate(-45deg);
+    }
+  }
+}
+
+.burger-text {
+  font-weight: $font-weight-semibold;
+  color: $color-gray-700;
+  font-size: $font-size-base;
+}
+
 .tournament-tabs {
   display: flex;
   gap: $spacing-sm;
@@ -53,9 +110,32 @@
   margin: 0;
 }
 
+// Mobile responsiveness
 @include respond-to(md) {
+  .tournament-switcher {
+    padding: $spacing-md;
+  }
+
+  // Show burger menu on mobile
+  .tournament-switcher__burger {
+    display: flex;
+  }
+
+  // Hide tabs by default on mobile
   .tournament-tabs {
+    display: none;
     flex-direction: column;
+    margin-top: $spacing-md;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height $transition-base ease-out;
+
+    // Show tabs when menu is open
+    &.open {
+      display: flex;
+      max-height: 500px;
+      transition: max-height $transition-base ease-in;
+    }
   }
 
   .tournament-tab {
