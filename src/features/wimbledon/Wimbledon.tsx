@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { AddParticipantForm } from '../shared/components/AddParticipantForm';
 import { AddMatchForm } from '../shared/components/AddMatchForm';
 import { StandingsTable } from '../shared/components/StandingsTable';
@@ -12,6 +13,9 @@ interface WimbledonProps {
  * Green theme, 2-column layout, icons for wins/losses
  */
 export default function Wimbledon({ tournamentId }: WimbledonProps) {
+  const [showAddPlayer, setShowAddPlayer] = useState(false);
+  const [showAddScore, setShowAddScore] = useState(false);
+
   return (
     <div className="wimbledon">
       <div className="wimbledon__header">
@@ -22,25 +26,35 @@ export default function Wimbledon({ tournamentId }: WimbledonProps) {
       <div className="wimbledon__content">
         <div className="wimbledon__sidebar">
           <div className="wimbledon__buttons">
-            <button className="wimbledon__add-btn wimbledon__add-btn--player">
-              + Add Player
+            <button
+              className="wimbledon__add-btn wimbledon__add-btn--player"
+              onClick={() => setShowAddPlayer(!showAddPlayer)}
+            >
+              {showAddPlayer ? '− Hide Player Form' : '+ Add Player'}
             </button>
-            <button className="wimbledon__add-btn wimbledon__add-btn--score">
-              + Add Score
+            <button
+              className="wimbledon__add-btn wimbledon__add-btn--score"
+              onClick={() => setShowAddScore(!showAddScore)}
+            >
+              {showAddScore ? '− Hide Score Form' : '+ Add Score'}
             </button>
           </div>
 
-          <AddParticipantForm
-            tournamentId={tournamentId}
-            participantLabel="Player"
-            theme="table"
-          />
+          {showAddPlayer && (
+            <AddParticipantForm
+              tournamentId={tournamentId}
+              participantLabel="Player"
+              theme="table"
+            />
+          )}
 
-          <AddMatchForm
-            tournamentId={tournamentId}
-            scoreLabel="Add Score"
-            theme="table"
-          />
+          {showAddScore && (
+            <AddMatchForm
+              tournamentId={tournamentId}
+              scoreLabel="Add Score"
+              theme="table"
+            />
+          )}
         </div>
 
         <div className="wimbledon__main">
