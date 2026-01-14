@@ -24,6 +24,18 @@
   .form-input {
     @include input-base;
     flex: 1;
+
+    &--flag {
+      flex: 0 0 60px;
+      text-align: center;
+      font-size: $font-size-xl;
+    }
+  }
+
+  .form-select {
+    @include input-base;
+    flex: 1;
+    cursor: pointer;
   }
 
   .form-button {
@@ -52,6 +64,10 @@
   }
 
   .form-input {
+    @include input-theme-sporty;
+  }
+
+  .form-select {
     @include input-theme-sporty;
   }
 

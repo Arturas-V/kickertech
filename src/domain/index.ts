@@ -24,3 +24,7 @@ export { createEmptyStats, isDuplicateMatch, isSelfMatch, POINTS } from './rules
 
 // Standings Engine
 export { calculateStandings, sortStandings } from './standings';
+
+// Data
+export { EUROPEAN_COUNTRIES } from './data/countries';
+export type { Country } from './data/countries';

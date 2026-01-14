@@ -22,6 +22,7 @@ const StandingsRow = memo(({ participant, showIcons }: StandingsRowProps) => {
   return (
     <tr className="standings-table__row">
       <td className="standings-table__cell standings-table__cell--name">
+        {participant.flag && <span className="flag-emoji">{participant.flag}</span>}
         {participant.name}
       </td>
       <td className="standings-table__cell">{participant.stats.played}</td>

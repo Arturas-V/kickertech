@@ -31,6 +31,11 @@
 
 .match-team {
   font-weight: $font-weight-medium;
+  @include flex-align-center;
+
+  .flag-emoji {
+    margin-right: $spacing-xs;
+  }
 }
 
 .match-vs {

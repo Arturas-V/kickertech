@@ -19,16 +19,27 @@ interface MatchItemProps {
   awayName: string;
 }
 
+interface MatchItemWithFlagsProps extends MatchItemProps {
+  homeFlag?: string;
+  awayFlag?: string;
+}
+
 /**
  * Memoized match item - prevents re-render unless match data changes
  */
-const MatchItem = memo(({ match, homeName, awayName }: MatchItemProps) => {
+const MatchItem = memo(({ match, homeName, awayName, homeFlag, awayFlag }: MatchItemWithFlagsProps) => {
   return (
     <div className="match-item">
       <div className="match-participants">
-        <span className="match-team">{homeName}</span>
+        <span className="match-team">
+          {homeFlag && <span className="flag-emoji">{homeFlag}</span>}
+          {homeName}
+        </span>
         <span className="match-vs">vs</span>
-        <span className="match-team">{awayName}</span>
+        <span className="match-team">
+          {awayFlag && <span className="flag-emoji">{awayFlag}</span>}
+          {awayName}
+        </span>
       </div>
       <div className="match-score">
         {match.homeScore}-{match.awayScore}
@@ -81,14 +92,20 @@ export const MatchList = memo(function MatchList({
 
   return (
     <div className={`match-list match-list--${theme}`}>
-      {recentMatches.map((match) => (
-        <MatchItem
-          key={match.id}
-          match={match}
-          homeName={getParticipantName(match.homeId)}
-          awayName={getParticipantName(match.awayId)}
-        />
-      ))}
+      {recentMatches.map((match) => {
+        const homeParticipant = tournament?.participants.find((p) => p.id === match.homeId);
+        const awayParticipant = tournament?.participants.find((p) => p.id === match.awayId);
+        return (
+          <MatchItem
+            key={match.id}
+            match={match}
+            homeName={getParticipantName(match.homeId)}
+            awayName={getParticipantName(match.awayId)}
+            homeFlag={homeParticipant?.flag}
+            awayFlag={awayParticipant?.flag}
+          />
+        );
+      })}
     </div>
   );
 });

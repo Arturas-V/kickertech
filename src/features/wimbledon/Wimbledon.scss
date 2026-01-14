@@ -16,7 +16,7 @@
   background-color: $color-tennis-green;
   color: $color-white;
   padding: $spacing-xl $spacing-2xl;
-  @include flex-left;
+  @include flex-align-center;
   gap: $spacing-lg;
 
   h2 {

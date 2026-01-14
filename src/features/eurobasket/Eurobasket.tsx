@@ -1,8 +1,11 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
+import { useAppSelector } from '@/app/hooks';
+import { selectParticipantsByTournamentId } from '@/app/selectors/tournamentsSelectors';
 import { AddParticipantForm } from '../shared/components/AddParticipantForm';
 import { AddMatchForm } from '../shared/components/AddMatchForm';
 import { StandingsTable } from '../shared/components/StandingsTable';
 import { MatchList } from '../shared/components/MatchList';
+import { EUROPEAN_COUNTRIES } from '@/domain/data/countries';
 import './Eurobasket.scss';
 
 interface EurobasketProps {
@@ -16,6 +19,17 @@ interface EurobasketProps {
 export default function Eurobasket({ tournamentId }: EurobasketProps) {
   const [showAddTeam, setShowAddTeam] = useState(false);
   const [showAddScore, setShowAddScore] = useState(false);
+
+  // Get current participants to filter out already added countries
+  const participants = useAppSelector((state) =>
+    selectParticipantsByTournamentId(state, tournamentId)
+  );
+
+  // Filter out countries that have already been added
+  const availableCountries = useMemo(() => {
+    const addedCountryNames = new Set(participants.map((p) => p.name));
+    return EUROPEAN_COUNTRIES.filter((country) => !addedCountryNames.has(country.name));
+  }, [participants]);
 
   return (
     <div className="eurobasket">
@@ -46,6 +60,7 @@ export default function Eurobasket({ tournamentId }: EurobasketProps) {
               tournamentId={tournamentId}
               participantLabel="Team"
               theme="sporty"
+              countriesList={availableCountries}
             />
           )}
 
