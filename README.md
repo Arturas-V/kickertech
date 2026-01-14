@@ -71,3 +71,11 @@ export default defineConfig([
   },
 ])
 ```
+
+## Development and deployment scripts
+
+- npm run dev - Development server on port 3000
+- npm run build - Production build with minification
+- npm run lint / npm run lint:fix - ESLint checks
+- npm run format / npm run format:check - Prettier formatting
+- npm run deploy - github pages deployment 
