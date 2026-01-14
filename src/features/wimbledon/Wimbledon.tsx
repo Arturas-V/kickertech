@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { AddParticipantForm } from '../shared/components/AddParticipantForm';
 import { AddMatchForm } from '../shared/components/AddMatchForm';
 import { StandingsTable } from '../shared/components/StandingsTable';
+import tennisIcon from '@/assets/tennis.svg';
 import './Wimbledon.scss';
 
 interface WimbledonProps {
@@ -19,7 +20,7 @@ export default function Wimbledon({ tournamentId }: WimbledonProps) {
   return (
     <div className="wimbledon">
       <div className="wimbledon__header">
-        <div className="wimbledon__icon">🎾</div>
+        <img src={tennisIcon} alt="Tennis" className="wimbledon__icon" />
         <h2>Wimbledon</h2>
       </div>
 

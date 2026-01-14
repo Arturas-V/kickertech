@@ -6,6 +6,7 @@ import { AddMatchForm } from '../shared/components/AddMatchForm';
 import { StandingsTable } from '../shared/components/StandingsTable';
 import { MatchList } from '../shared/components/MatchList';
 import { EUROPEAN_COUNTRIES } from '@/domain/data/countries';
+import basketballIcon from '@/assets/basketball.svg';
 import './Eurobasket.scss';
 
 interface EurobasketProps {
@@ -34,7 +35,7 @@ export default function Eurobasket({ tournamentId }: EurobasketProps) {
   return (
     <div className="eurobasket">
       <div className="eurobasket__header">
-        <div className="eurobasket__icon">🏀</div>
+        <img src={basketballIcon} alt="Basketball" className="eurobasket__icon" />
         <h2>EUROBASKET</h2>
       </div>
 

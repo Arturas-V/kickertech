@@ -33,7 +33,10 @@
 }
 
 .eurobasket__icon {
-  font-size: $font-size-3xl;
+  width: 40px;
+  height: 40px;
+  filter: brightness(0) invert(1); //
+  rotate: 45deg;// Makes icon white to match the theme
 }
 
 .eurobasket__content {
