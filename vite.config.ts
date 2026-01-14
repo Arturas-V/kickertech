@@ -22,25 +22,6 @@ export default defineConfig(({ mode }) => ({
     chunkSizeWarningLimit: 1000,
     rollupOptions: {
       output: {
-        // Advanced code splitting strategy
-        manualChunks: (id) => {
-          // Vendor chunk for core React libraries
-          if (id.includes('node_modules/react') || id.includes('node_modules/react-dom')) {
-            return 'vendor-react';
-          }
-          // Redux chunk
-          if (id.includes('node_modules/@reduxjs') || id.includes('node_modules/react-redux')) {
-            return 'vendor-redux';
-          }
-          // Domain logic (pure business logic)
-          if (id.includes('/src/domain/')) {
-            return 'domain';
-          }
-          // Other node_modules
-          if (id.includes('node_modules')) {
-            return 'vendor';
-          }
-        },
         // Optimize asset file names
         assetFileNames: (assetInfo) => {
           if (/\.(png|jpe?g|svg|gif|tiff|bmp|ico)$/i.test(assetInfo.name || '')) {
