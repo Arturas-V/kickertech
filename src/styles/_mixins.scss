@@ -22,10 +22,9 @@
 }
 
 // Flexbox patterns
-@mixin flex-center {
+@mixin flex-left {
   display: flex;
   align-items: center;
-  justify-content: center;
 }
 
 @mixin flex-between {
@@ -52,6 +51,10 @@
     opacity: 0.5;
     cursor: not-allowed;
   }
+
+  @include respond-to(sm) {
+    padding: $spacing-sm $spacing-lg;
+  }
 }
 
 // Button Variant
@@ -72,6 +75,7 @@
   border-radius: $border-radius-md;
   font-size: $font-size-base;
   transition: border-color $transition-base;
+  width: 100%;
 
   &:focus {
     outline: none;
@@ -81,6 +85,10 @@
   &:disabled {
     opacity: 0.5;
     cursor: not-allowed;
+  }
+
+  @include respond-to(sm) {
+    padding: $spacing-sm;
   }
 }
 
@@ -116,16 +124,6 @@
   white-space: nowrap;
 }
 
-// Hover lift effect
-@mixin hover-lift {
-  transition: transform $transition-base, box-shadow $transition-base;
-
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: $shadow-md;
-  }
-}
-
 // Theme-specific form inputs
 @mixin input-theme-sporty {
   background: rgba(255, 255, 255, 0.1);
@@ -159,12 +157,12 @@
 @mixin table-header {
   padding: $spacing-md $spacing-sm;
   text-align: left;
-  font-weight: $font-weight-semibold;
+  font-weight: $font-weight-bold;
 }
 
 @mixin table-cell {
   padding: $spacing-md $spacing-sm;
-  text-align: left;
+  text-align: center;
 }
 
 @mixin table-row-hover($hover-color) {

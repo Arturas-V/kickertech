@@ -6,7 +6,6 @@
 @import '../../../styles/mixins';
 
 .standings-table {
-  padding: $spacing-xl;
   border-radius: $border-radius-lg;
 
   .empty-state {
@@ -21,8 +20,12 @@
 .standings-table__header {
   @include table-header;
   border-bottom: 2px solid;
+  text-align: center;
 }
 
+.standings-table__header:first-child {
+  text-align: left;
+}
 .standings-table__row {
   border-bottom: 1px solid;
 }
@@ -30,24 +33,30 @@
 .standings-table__cell {
   @include table-cell;
 
+  &:first-child {
+    text-align: left;
+  }
+
   &--name {
     font-weight: $font-weight-medium;
   }
 
   &--points {
     font-weight: $font-weight-bold;
-    font-size: $font-size-lg;
   }
 }
 
 .icon-success {
   color: $color-success;
-  margin-right: $spacing-xs;
 }
 
 .icon-error {
   color: $color-error;
-  margin-right: $spacing-xs;
+}
+
+.icon-success,
+.icon-error {
+  margin-left: $spacing-xs;
 }
 
 // Theme: Clean

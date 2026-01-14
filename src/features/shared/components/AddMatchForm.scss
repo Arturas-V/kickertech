@@ -8,7 +8,7 @@
 .add-match-form {
   padding: $spacing-xl;
   border-radius: $border-radius-lg;
-  margin-bottom: $spacing-xl;
+  background: $color-gray-50;
 
   h3 {
     margin: 0 0 $spacing-lg 0;
@@ -53,7 +53,6 @@
 
 // Theme: Clean
 .add-match-form--clean {
-  background: $color-white;
 
   h3 {
     color: $color-gray-800;
@@ -101,5 +100,11 @@
 
   .form-submit {
     @include button-variant($color-purple-button, $color-purple-button-dark);
+  }
+}
+
+@include respond-to(md) {
+  .add-match-form {
+    padding: $spacing-md;
   }
 }

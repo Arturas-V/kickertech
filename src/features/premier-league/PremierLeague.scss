@@ -29,14 +29,14 @@
   grid-template-columns: repeat(3, 1fr);
   gap: $spacing-xl;
   padding: $spacing-xl;
-  background: $color-gray-50;
+
+  .standings-table__table-thead {
+    background-color: $color-gray-100;
+  }
 }
 
 .premier-league__column {
-  background: $color-white;
   border-radius: $border-radius-lg;
-  box-shadow: $shadow-sm;
-  min-height: 300px;
 }
 
 @include respond-to(xl) {
@@ -55,7 +55,9 @@
   }
 
   .premier-league__content {
-    padding: $spacing-lg;
+    padding: $spacing-md;
     gap: $spacing-lg;
+    display: flex;
+    flex-direction: column;
   }
 }

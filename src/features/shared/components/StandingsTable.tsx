@@ -26,19 +26,19 @@ const StandingsRow = memo(({ participant, showIcons }: StandingsRowProps) => {
       </td>
       <td className="standings-table__cell">{participant.stats.played}</td>
       <td className="standings-table__cell">
+          {participant.stats.wins}
         {showIcons && participant.stats.wins > 0 ? (
           <span className="icon-success">✓</span>
         ) : null}
-        {participant.stats.wins}
       </td>
       {!showIcons && (
         <td className="standings-table__cell">{participant.stats.draws}</td>
       )}
       <td className="standings-table__cell">
+          {participant.stats.losses}
         {showIcons && participant.stats.losses > 0 ? (
           <span className="icon-error">✕</span>
         ) : null}
-        {participant.stats.losses}
       </td>
       <td className="standings-table__cell standings-table__cell--points">
         {participant.stats.points}
@@ -73,8 +73,8 @@ export const StandingsTable = memo(function StandingsTable({
   return (
     <div className={`standings-table standings-table--${theme}`}>
       <table className="standings-table__table">
-        <thead>
-          <tr>
+        <thead className="standings-table__table-thead">
+          <tr className="standings-table__row">
             <th className="standings-table__header">
               {theme === 'table' ? 'Player' : 'Team'}
             </th>
@@ -85,7 +85,7 @@ export const StandingsTable = memo(function StandingsTable({
             <th className="standings-table__header">Pts</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className="standings-table__table-tbody">
           {standings.map((participant) => (
             <StandingsRow
               key={participant.id}

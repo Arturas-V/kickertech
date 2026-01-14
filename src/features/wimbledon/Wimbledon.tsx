@@ -27,16 +27,16 @@ export default function Wimbledon({ tournamentId }: WimbledonProps) {
         <div className="wimbledon__sidebar">
           <div className="wimbledon__buttons">
             <button
-              className="wimbledon__add-btn wimbledon__add-btn--player"
+              className={`wimbledon__add-btn wimbledon__add-btn--player ${showAddPlayer ? 'wimbledon__add-btn--active' : ''}`}
               onClick={() => setShowAddPlayer(!showAddPlayer)}
             >
-              {showAddPlayer ? '− Hide Player Form' : '+ Add Player'}
+              {showAddPlayer ? '− Add Player' : '+ Add Player'}
             </button>
             <button
-              className="wimbledon__add-btn wimbledon__add-btn--score"
+              className={`wimbledon__add-btn wimbledon__add-btn--score ${showAddScore ? 'wimbledon__add-btn--active' : ''}`}
               onClick={() => setShowAddScore(!showAddScore)}
             >
-              {showAddScore ? '− Hide Score Form' : '+ Add Score'}
+              {showAddScore ? '− Add Score' : '+ Add Score'}
             </button>
           </div>
 

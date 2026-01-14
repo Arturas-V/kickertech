@@ -73,8 +73,11 @@
   }
 
   .match-item {
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-bottom: 1px solid $color-green-black;
+
+    &:last-child {
+      border-bottom: none;
+    }
   }
 
   .match-team {
@@ -86,7 +89,6 @@
   }
 
   .match-score {
-    background: rgba(255, 255, 255, 0.2);
     color: $color-white;
   }
 }
@@ -107,5 +109,15 @@
   .match-score {
     background: $color-gray-100;
     color: $color-gray-700;
+  }
+}
+
+@include respond-to(sm) {
+  .match-list {
+    padding: $spacing-sm;
+  }
+
+  .match-item {
+    margin-bottom: 0;
   }
 }

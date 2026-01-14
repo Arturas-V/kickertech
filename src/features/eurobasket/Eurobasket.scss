@@ -6,7 +6,7 @@
 @import '../../styles/mixins';
 
 .eurobasket {
-  @include gradient-green-dark;
+  background-color: $color-green-dark;
   border-radius: $border-radius-xl;
   overflow: hidden;
   box-shadow: $shadow-md;
@@ -15,14 +15,14 @@
 
 .eurobasket__header {
   padding: $spacing-xl $spacing-2xl;
-  @include flex-center;
+  @include flex-left;
   gap: $spacing-lg;
   border-bottom: 2px solid rgba(255, 255, 255, 0.1);
 
   h2 {
     margin: 0;
     font-size: $font-size-2xl;
-    font-weight: $font-weight-bold;
+    font-weight: $font-weight-medium;
     letter-spacing: 1px;
   }
 }
@@ -36,21 +36,37 @@
   grid-template-columns: 1fr 1fr;
   gap: $spacing-2xl;
   padding: $spacing-2xl;
+
+  .standings-table__row {
+    border-bottom: none;
+  }
+
+  .standings-table__header {
+    border-bottom: none;
+  }
 }
 
 .eurobasket__section {
   @include flex-column;
   gap: $spacing-lg;
+
+  .standings-table__table-tbody {
+    background-color: $color-green-black;
+  }
+
+  .standings-table__cell--name {
+    padding-left: $spacing-md;
+  }
 }
 
 .eurobasket__buttons {
   display: flex;
+  justify-content: space-between;
   gap: $spacing-lg;
   margin-bottom: $spacing-lg;
 }
 
 .eurobasket__add-btn {
-  flex: 1;
   padding: $spacing-md $spacing-xl;
   background: $color-orange;
   color: $color-white;
@@ -63,7 +79,6 @@
 
   &:hover {
     background: $color-orange-dark;
-    @include hover-lift;
   }
 }
 
@@ -93,8 +108,10 @@
     padding: $spacing-xl;
     gap: $spacing-xl;
   }
+}
 
-  .eurobasket__buttons {
-    flex-direction: column;
+@include respond-to(sm) {
+  .eurobasket__add-btn {
+    padding: $spacing-sm $spacing-md;
   }
 }

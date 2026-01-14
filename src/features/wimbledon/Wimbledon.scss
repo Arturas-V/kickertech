@@ -13,10 +13,10 @@
 }
 
 .wimbledon__header {
-  @include gradient-tennis;
+  background-color: $color-tennis-green;
   color: $color-white;
   padding: $spacing-xl $spacing-2xl;
-  @include flex-center;
+  @include flex-left;
   gap: $spacing-lg;
 
   h2 {
@@ -34,26 +34,26 @@
   display: grid;
   grid-template-columns: 400px 1fr;
   gap: 0;
-  min-height: 500px;
+
+  .standings-table__table-thead {
+    background-color: $color-gray-100;
+  }
 }
 
 .wimbledon__sidebar {
-  background: $color-gray-50;
   padding: $spacing-2xl;
-  border-right: 2px solid $color-gray-200;
   @include flex-column;
   gap: $spacing-lg;
 }
 
 .wimbledon__main {
-  padding: $spacing-2xl;
+  padding: 0 $spacing-2xl $spacing-2xl;
   background: $color-white;
 }
 
 .wimbledon__buttons {
   display: flex;
   gap: $spacing-lg;
-  margin-bottom: $spacing-lg;
 }
 
 .wimbledon__add-btn {
@@ -68,20 +68,18 @@
   color: $color-white;
 
   &--player {
-    background: $color-tennis-green-light;
+    background: $color-tennis-green-lighter;
 
-    &:hover {
-      background: $color-tennis-green-lighter;
-      @include hover-lift;
+    &.wimbledon__add-btn--active {
+      background: $color-tennis-green-light;
     }
   }
 
   &--score {
     background: $color-purple-button;
 
-    &:hover {
+    &.wimbledon__add-btn--active {
       background: $color-purple-button-dark;
-      @include hover-lift;
     }
   }
 }
@@ -89,11 +87,6 @@
 @include respond-to(xl) {
   .wimbledon__content {
     grid-template-columns: 1fr;
-  }
-
-  .wimbledon__sidebar {
-    border-right: none;
-    border-bottom: 2px solid $color-gray-200;
   }
 }
 
@@ -111,7 +104,7 @@
     padding: $spacing-xl;
   }
 
-  .wimbledon__buttons {
-    flex-direction: column;
+  .wimbledon__main {
+    padding-top: 0;
   }
 }

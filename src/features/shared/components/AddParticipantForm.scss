@@ -8,7 +8,7 @@
 .add-participant-form {
   padding: $spacing-xl;
   border-radius: $border-radius-lg;
-  margin-bottom: $spacing-xl;
+  background: $color-gray-50;
 
   h3 {
     margin: 0 0 $spacing-lg 0;
@@ -33,7 +33,6 @@
 
 // Theme: Clean (Premier League)
 .add-participant-form--clean {
-  background: $color-white;
 
   h3 {
     color: $color-gray-800;
@@ -71,5 +70,11 @@
 
   .form-button {
     @include button-variant($color-tennis-green-light, $color-tennis-green-lighter);
+  }
+}
+
+@include respond-to(md) {
+  .add-participant-form {
+    padding: $spacing-md;
   }
 }
