@@ -10,6 +10,9 @@
   border-radius: $border-radius-xl;
   overflow: hidden;
   box-shadow: $shadow-md;
+  font-family: "Noto Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
 }
 
 .premier-league__header {

@@ -11,6 +11,8 @@
   overflow: hidden;
   box-shadow: $shadow-md;
   color: $color-white;
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
 }
 
 .eurobasket__header {
@@ -21,8 +23,11 @@
 
   h2 {
     margin: 0;
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
     font-size: $font-size-2xl;
-    font-weight: $font-weight-medium;
+    font-weight: 700;
+    font-style: normal;
     letter-spacing: 1px;
   }
 }
