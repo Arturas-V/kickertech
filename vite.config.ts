@@ -5,6 +5,7 @@ import path from 'path'
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => ({
   plugins: [react()],
+  base: '/kickertech/',
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
