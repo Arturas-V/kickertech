@@ -2,7 +2,7 @@
   "name": "sports-standings-app",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://arturas-v.github.io/kickertech/",
+  "homepage": "https://github.com/Arturas-V/kickertech",
   "type": "module",
   "scripts": {
     "dev": "vite",
